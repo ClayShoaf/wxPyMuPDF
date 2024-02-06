@@ -26,3 +26,6 @@ python main.py sample.pdf
 - d/u - jump up or down (larger jumps than j/k)
 - i/o - zoom in/out
 - s - toggle two page mode (I don't know why "s" that's just what zathura uses, so I went with it for now)
+
+### Demo
+https://github.com/ClayShoaf/wxPyMuPDF/assets/31578812/e86ccd2c-8a71-4526-a73f-622ed6e2d9fc
