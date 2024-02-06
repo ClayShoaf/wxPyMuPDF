@@ -13,6 +13,7 @@ The current options for PDF readers were missing some key features. These are th
 - [ ] using OCR in combination with an object detection model to more accurately pull data from forms.
 
 ### Navigation:
-- h/j/k/l scroll
-- d/u jump up or down (larger jumps than j/k)
-- i/o zoom in/out
+- h/j/k/l - scroll
+- d/u - jump up or down (larger jumps than j/k)
+- i/o - zoom in/out
+- s - toggle two page mode (I don't know why "s" that's just what zathura uses, so I went with it for now)
