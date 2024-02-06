@@ -12,6 +12,15 @@ The current options for PDF readers were missing some key features. These are th
 - [ ] overlaying standard forms to highlight user data, using image registration
 - [ ] using OCR in combination with an object detection model to more accurately pull data from forms.
 
+### To run:
+```
+# Install requirements
+pip install -r requirements.txt
+
+# Run the program
+python main.py sample.pdf
+```
+
 ### Navigation:
 - h/j/k/l - scroll
 - d/u - jump up or down (larger jumps than j/k)
