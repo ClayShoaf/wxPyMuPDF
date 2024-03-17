@@ -8,6 +8,7 @@ The current options for PDF readers were missing some key features. These are th
 - [x] rotate individual pages, moving landscape pages to their own line, so you don't have to zoom/scroll so much
 - [x] vim keys navigation
 - [x] keyboard shortcuts for switching between single/two page mode
+- [x] ability to save individual pages as a png file
 - [ ] image classification for recognizing standard forms
 - [ ] overlaying standard forms to highlight user data, using image registration
 - [ ] using OCR in combination with an object detection model to more accurately pull data from forms.
@@ -29,3 +30,4 @@ python main.py sample.pdf
 
 ### Demo
 https://github.com/ClayShoaf/wxPyMuPDF/assets/31578812/e86ccd2c-8a71-4526-a73f-622ed6e2d9fc
+
