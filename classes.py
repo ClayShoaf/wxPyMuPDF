@@ -245,11 +245,15 @@ class Page(wx.Window):
         self.static = wx.StaticBitmap(self, id, wx.Bitmap(self.img))
         self.SetSize(self.img.GetSize())
 
-        self.rot_btn_size = 35
-        self.rot_l = wx.Button(self, -1, '↶', (0,0), (self.rot_btn_size,self.rot_btn_size), name='rot_l')
+        self.small_btn_size = [35,35]
+        self.text_btn_size = [120,35]
+
+        self.rot_l = wx.Button(self, -1, '↶', (0,0), self.small_btn_size, name='rot_l')
         self.rot_l.Hide()
-        self.rot_r = wx.Button(self, -1, '↷', (0,0), (self.rot_btn_size,self.rot_btn_size), name='rot_r')
+        self.rot_r = wx.Button(self, -1, '↷', (0,0), self.small_btn_size, name='rot_r')
         self.rot_r.Hide()
+        self.save_img = wx.Button(self, -1, '💾 Save as Image', (0,0), self.text_btn_size, name='save_img')
+        self.save_img.Hide()
 
         self.Bind(wx.EVT_BUTTON, self.OnButton)
         self.Bind(wx.EVT_ENTER_WINDOW, self.showButtons)
@@ -275,34 +279,56 @@ class Page(wx.Window):
 
     def OnSize(self):
         size = self.static.GetSize()
-        self.rot_l.SetPosition((0,size[1]-self.rot_btn_size))
-        self.rot_r.SetPosition((size[0]-self.rot_btn_size,size[1]-self.rot_btn_size))
+        self.rot_l.SetPosition((0, size[1]-self.small_btn_size[1]))
+        self.rot_r.SetPosition((size[0]-self.small_btn_size[0], size[1]-self.small_btn_size[1]))
+        self.save_img.SetPosition((size[0]//2 - self.text_btn_size[0]//2, 0))
         self.Update()
 
     def showButtons(self, event):
         if event.GetEventType() == wx.wxEVT_ENTER_WINDOW:
             self.rot_l.Show()
             self.rot_r.Show()
+            self.save_img.Show()
         elif event.GetEventType() == wx.wxEVT_LEAVE_WINDOW:
             pos = event.GetPosition()
             rect_l = self.rot_l.GetRect()
             rect_r = self.rot_r.GetRect()
+            rect_save = self.save_img.GetRect()
             good = True
             if rect_r.Contains(pos):
                 good = False
-            if rect_l.Contains(pos):
+            elif rect_l.Contains(pos):
+                good = False
+            elif rect_save.Contains(pos):
                 good = False
             if good:
                 self.rot_l.Hide()
                 self.rot_r.Hide()
+                self.save_img.Hide()
                 self.parent.SetFocus()
 
+    # If I make many more buttons than this, I will break them out into their own functions.
     def OnButton(self, event):
         if event.GetEventObject().Name == 'rot_r':
             self.rotate(clockwise=True)
 
         elif event.GetEventObject().Name == 'rot_l':
             self.rotate(clockwise=False)
+
+        elif event.GetEventObject().Name == 'save_img':
+            save_dialog = wx.FileDialog(
+                self, 
+                "Save Image", 
+                wildcard="PNG files (*.png)|*.png", 
+                style=wx.FD_SAVE | wx.FD_OVERWRITE_PROMPT, 
+                defaultFile="page_" + str(self.GetId()) +".png")
+
+            if save_dialog.ShowModal() == wx.ID_CANCEL:
+                return
+
+            path = save_dialog.GetPath()
+            bmp = self.static.GetBitmap()
+            bmp.SaveFile(path, wx.BITMAP_TYPE_PNG)
 
     def rotate(self, clockwise=True):
         self.parent.rotate_page(self.GetId())
