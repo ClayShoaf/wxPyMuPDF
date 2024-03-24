@@ -3,9 +3,9 @@ from classes import *
 from functions import keyHandler
 import wx.lib.mixins.inspection
 
-#app = wx.App()
-app = wx.lib.mixins.inspection.InspectableApp()
-root = wx.Frame(None, -1, "SIGMA CHUDETTE", size=(800,600))
+app = wx.App()
+#app = wx.lib.mixins.inspection.InspectableApp()
+root = wx.Frame(None, -1, "wxPyMuPDF", size=(800,600))
 #root.ShowFullScreen(True)
 root.Maximize(True)
 vbox = wx.BoxSizer(wx.VERTICAL)
